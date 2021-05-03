@@ -7,6 +7,8 @@ void makeGrid(void){
     u = (double * )malloc(sizeof(double) * x_split);
     e = (double * )malloc(sizeof(double) * x_split);
     p = (double * )malloc(sizeof(double) * x_split);
+    c = (double * )malloc(sizeof(double) * x_split);
+    H = (double * )malloc(sizeof(double) * x_split);
     area = (double * )malloc(sizeof(double) * x_split);
     Q1 = (double * )malloc(sizeof(double) * x_split);
     Q2 = (double * )malloc(sizeof(double) * x_split);
@@ -25,6 +27,8 @@ void freeGrid(void){
     free(u);
     free(e);
     free(p);
+    free(c);
+    free(H);
     free(area);
     free(Q1);
     free(Q2);

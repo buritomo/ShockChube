@@ -18,17 +18,21 @@ int main(void){
     makeGrid();
     initialValue();
     boundaryValue();
-    calcInternalEnergy();
+    calcInternalValues();
+    setAverage();
+    setAssumedPotential();
 
     while(time < TIME_MAX){
         makePotential();
-
+        fds();
+        rungekutta();
         inversePotentialToParams();
-        time += TIME_STEP;
+        time = time + TIME_STEP;
+        printTimer();
     }
-
-
-
+    export();
+    releaseAssumedPotential();
+    releaseAverage();
     freeGrid();
     return 0;
 }

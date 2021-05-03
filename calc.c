@@ -3,9 +3,11 @@
 #include <math.h>
 #include "global.h"
 
-void calcInternalEnergy(void){
+void calcInternalValues(void){
     for(int k=0; k<x_split; k++){
         e[k] = p[k] / (rho[k] * (GAMMA - 1));
+        c[k] = sqrt(GAMMA * p[k] / rho[k]);
+        H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) / rho[k];
     }
     return;
 }
@@ -30,6 +32,17 @@ void inversePotentialToParams(void){
         u[k] = Q2[k] / rho[k];
         e[k] = Q3[k];
         p[k] = e[k] * rho[k] * (GAMMA - 1);
+        c[k] = sqrt(GAMMA * p[k] / rho[k]);
+        H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) / rho[k];
+    }
+    return;
+}
+
+void printTimer(void){
+    if((time - time_flag) > (TIME_MAX / 100)){
+        double rate = time / TIME_MAX * 100;
+        printf("%.1f is finished....\n", rate);
+        time_flag = time;
     }
     return;
 }

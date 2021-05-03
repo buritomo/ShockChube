@@ -1,10 +1,10 @@
 #ifndef GLOBAL_H_
     #define GLOBAL_H_
 
-    #define X_STEP 0.00001
-    #define TIME_STEP 0.00001
+    #define X_STEP 0.01
+    #define TIME_STEP 0.1
     #define GAMMA 1.4
-    #define TIME_MAX 0.01
+    #define TIME_MAX 1
 
     #define RHO_0 1.0
     #define P_0 1.0
@@ -14,39 +14,45 @@
     #define U_N 0.0
 
     #ifdef MAIN_C_
-    volatile double *rho;
-    volatile double *u;
-    volatile double *e;
-    volatile double *p;
-    volatile double *area;
-    volatile double time;
-    volatile double *Q1;
-    volatile double *Q2;
-    volatile double *Q3;
-    volatile double *E1;
-    volatile double *E2;
-    volatile double *E3;
-    volatile double *Ehalf1;
-    volatile double *Ehalf2;
-    volatile double *Ehalf3;
-    volatile int x_split;
+    double *rho;
+    double *u;
+    double *e;
+    double *p;
+    double *H;
+    double *c;
+    double *area;
+    double time;
+    double time_flag;
+    double *Q1;
+    double *Q2;
+    double *Q3;
+    double *E1;
+    double *E2;
+    double *E3;
+    double *Ehalf1;
+    double *Ehalf2;
+    double *Ehalf3;
+    int x_split;
     #else
-    extern volatile double *rho;
-    extern volatile double *u;
-    extern volatile double *e;
-    extern volatile double *p;
-    extern volatile double *area;
-    extern volatile double time;
-    extern volatile double *Q1;
-    extern volatile double *Q2;
-    extern volatile double *Q3;
-    extern volatile double *E1;
-    extern volatile double *E2;
-    extern volatile double *E3;
-    extern volatile double *Ehalf1;
-    extern volatile double *Ehalf2;
-    extern volatile double *Ehalf3;
-    extern volatile int x_split;
+    extern double *rho;
+    extern double *u;
+    extern double *e;
+    extern double *p;
+    extern double *H;
+    extern double *c;
+    extern double *area;
+    extern double time;
+    extern double time_flag;
+    extern double *Q1;
+    extern double *Q2;
+    extern double *Q3;
+    extern double *E1;
+    extern double *E2;
+    extern double *E3;
+    extern double *Ehalf1;
+    extern double *Ehalf2;
+    extern double *Ehalf3;
+    extern int x_split;
     #endif
 
 #endif //GLOBAL_H_
