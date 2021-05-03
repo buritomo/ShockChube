@@ -21,7 +21,11 @@ void releaseAssumedPotential(void){
 }
 
 void rungekutta(void){
-    double lam[4] = {0.25, 1/3, 0.5, 1.0};
+    double lam[4];
+    lam[0] = 0.25;
+    lam[1] = 1.0 / 3.0;
+    lam[2] = 0.5;
+    lam[3] = 1.0;
 
     for(int k=0; k<x_split; k++){
         k1[k] = Q1[k];
