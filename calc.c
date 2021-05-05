@@ -5,9 +5,9 @@
 
 void calcInternalValues(void){
     for(int k=0; k<x_split; k++){
-        e[k] = p[k] / (rho[k] * (GAMMA - 1));
+        e[k] = rho[k] * (p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * u[k] * u[k]);
         c[k] = sqrt(GAMMA * p[k] / rho[k]);
-        H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) / rho[k];
+        H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * u[k] * u[k];
     }
     return;
 }
@@ -31,9 +31,9 @@ void inversePotentialToParams(void){
         rho[k] = Q1[k];
         u[k] = Q2[k] / rho[k];
         e[k] = Q3[k];
-        p[k] = e[k] * rho[k] * (GAMMA - 1);
+        p[k] = (e[k] - 0.5 * rho[k] * u[k] * u[k]) *  (GAMMA - 1);
         c[k] = sqrt(GAMMA * p[k] / rho[k]);
-        H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) / rho[k];
+        H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * u[k] * u[k];
     }
     return;
 }

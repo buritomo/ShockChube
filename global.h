@@ -1,10 +1,10 @@
 #ifndef GLOBAL_H_
     #define GLOBAL_H_
 
-    #define X_STEP 0.01
-    #define TIME_STEP 0.1
+    #define X_STEP    0.001
+    #define TIME_STEP 0.0001
     #define GAMMA 1.4
-    #define TIME_MAX 1
+    #define TIME_MAX  0.01
 
     #define RHO_0 1.0
     #define P_0 1.0
@@ -32,7 +32,7 @@
     double *Ehalf1;
     double *Ehalf2;
     double *Ehalf3;
-    int x_split;
+    volatile int x_split;
     #else
     extern double *rho;
     extern double *u;
@@ -52,7 +52,7 @@
     extern double *Ehalf1;
     extern double *Ehalf2;
     extern double *Ehalf3;
-    extern int x_split;
+    extern volatile int x_split;
     #endif
 
 #endif //GLOBAL_H_

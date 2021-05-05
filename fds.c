@@ -15,14 +15,14 @@ void fds(void){
     RoeAverage();
 
     for(int k=0; k<x_split-1; k++){
-        b1 = u[k] * u[k] / 2 * (GAMMA - 1) / c[k] / c[k];
-        b2 = (GAMMA - 1) / c[k] / c[k];
+        b1 = u_ave[k] * u_ave[k] / 2 * (GAMMA - 1) / c_ave[k] / c_ave[k];
+        b2 = (GAMMA - 1) / c_ave[k] / c_ave[k];
         RightArray(R, b1, b2, k);
         LeftArray(L, b1, b2, k);
         Lambda(lambda, k);
         for(int l=0; l<3; l++){
             for(int m=0; m<3; m++){
-                w[l + 3*m] = 0;
+                w[l + 3*m] = 0.0;
                 for(int n=0; n<3; n++){
                     w[l+3*m] = w[l+3*m] + R[l+3*n] * lambda[n] * L[n+3*m];
                 }
@@ -58,19 +58,20 @@ void RoeAverage(void){
         rho_ave[k] = sqrt(rho[k] * rho[k+1]);
         u_ave[k] = (sqrt(rho[k]) * u[k] + sqrt(rho[k+1]) * u[k+1]) / ((sqrt(rho[k]) + sqrt(rho[k+1])));
         H_ave[k] = (sqrt(rho[k]) * H[k] + sqrt(rho[k+1]) * H[k+1]) / ((sqrt(rho[k]) + sqrt(rho[k+1])));
-        c_ave[k] = sqrt((GAMMA - 1)* (H_ave[k] - 0.5 * u_ave[k] * u_ave[k]));
+        c_ave[k] = sqrt((GAMMA - 1) * (H_ave[k] - 0.5 * u_ave[k] * u_ave[k]));
     }
+    return;
 }
 
 void RightArray(double *R, double b1, double b2, int k){
     R[0 + 3 * 0] = 1;
-    R[1 + 3 * 0] = 1;
-    R[2 + 3 * 0] = 1;
-    R[0 + 3 * 1] = u_ave[k] - c_ave[k];
+    R[0 + 3 * 1] = 1;
+    R[0 + 3 * 2] = 1;
+    R[1 + 3 * 0] = u_ave[k] - c_ave[k];
     R[1 + 3 * 1] = u_ave[k];
-    R[2 + 3 * 1] = u_ave[k] + c_ave[k];
-    R[0 + 3 * 2] = H_ave[k] - u_ave[k] * c_ave[k];
-    R[1 + 3 * 2] = 0.5 * u_ave[k] * u_ave[k];
+    R[1 + 3 * 2] = u_ave[k] + c_ave[k];
+    R[2 + 3 * 0] = H_ave[k] - u_ave[k] * c_ave[k];
+    R[2 + 3 * 1] = 0.5 * u_ave[k] * u_ave[k];
     R[2 + 3 * 2] = H_ave[k] + u_ave[k] * c_ave[k];
 
     return;
@@ -78,22 +79,22 @@ void RightArray(double *R, double b1, double b2, int k){
 
 void LeftArray(double *L, double b1, double b2, int k){
     L[0 + 3 * 0] = 0.5 * (b1 + u_ave[k] / c_ave[k]);
-    L[1 + 3 * 0] = -0.5 * (1 / c_ave[k] +  b2 * u_ave[k]);
-    L[2 + 3 * 0] = 0.5 * b2;
-    L[0 + 3 * 1] = 1 - b1;
+    L[0 + 3 * 1] = -0.5 * (1 / c_ave[k] +  b2 * u_ave[k]);
+    L[0 + 3 * 2] = 0.5 * b2;
+    L[1 + 3 * 0] = 1 - b1;
     L[1 + 3 * 1] = b2 * u_ave[k];
-    L[2 + 3 * 1] = -1 * b2;
-    L[0 + 3 * 2] = 0.5 * (b1 - u_ave[k] / c_ave[k]);
-    L[1 + 3 * 2] = 0.5 * (1 / c_ave[k] -  b2 * u_ave[k]);
+    L[1 + 3 * 2] = -1 * b2;
+    L[2 + 3 * 0] = 0.5 * (b1 - u_ave[k] / c_ave[k]);
+    L[2 + 3 * 1] = 0.5 * (1 / c_ave[k] -  b2 * u_ave[k]);
     L[2 + 3 * 2] = 0.5 * b2;
 
     return;  
 }
 
 void Lambda(double *lambda, int k){
-    lambda[0] = u_ave[k] - c_ave[k];
-    lambda[1] = u_ave[k];
-    lambda[2] = u_ave[k] + c_ave[k];
+    lambda[0] = abs(u_ave[k] - c_ave[k]);
+    lambda[1] = abs(u_ave[k]);
+    lambda[2] = abs(u_ave[k] + c_ave[k]);
 
     return;
 }

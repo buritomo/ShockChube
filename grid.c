@@ -22,6 +22,13 @@ void makeGrid(void){
     return;
 }
 
+void defineXgrid(void){
+    for(int k=0; k<x_split; k++){
+        area[k] = (double)k * 1.0 / (double)x_split;
+    }
+    return;
+}
+
 void freeGrid(void){
     free(rho);
     free(u);
