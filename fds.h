@@ -1,11 +1,11 @@
 #ifndef FDS_H_
     #define FDS_H_
-
+    /*
     static double *rho_ave;
     static double *u_ave; 
     static double *H_ave;
     static double *c_ave;
-
+    */
     void fds(void);
     void setAverage(void);
     void releaseAverage(void);
