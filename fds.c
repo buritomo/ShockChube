@@ -92,9 +92,9 @@ void LeftArray(double *L, double b1, double b2, int k){
 }
 
 void Lambda(double *lambda, int k){
-    lambda[0] = abs(u_ave[k] - c_ave[k]);
-    lambda[1] = abs(u_ave[k]);
-    lambda[2] = abs(u_ave[k] + c_ave[k]);
+    lambda[0] = fabs(u_ave[k] - c_ave[k]);
+    lambda[1] = fabs(u_ave[k]);
+    lambda[2] = fabs(u_ave[k] + c_ave[k]);
 
     return;
 }
