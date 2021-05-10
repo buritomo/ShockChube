@@ -21,7 +21,6 @@ int main(void){
     initialValue();
     boundaryValue();
     calcInternalValues();
-    setAverage();
     setAssumedPotential();
 
     while(time < TIME_MAX){
@@ -48,7 +47,6 @@ int main(void){
     }
     export();
     releaseAssumedPotential();
-    releaseAverage();
     freeGrid();
     return 0;
 }

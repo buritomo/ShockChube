@@ -2,9 +2,9 @@
     #define GLOBAL_H_
 
     #define X_STEP    0.001
-    #define TIME_STEP 0.0001
+    #define TIME_STEP 0.000001
     #define GAMMA 1.4
-    #define TIME_MAX  0.01
+    #define TIME_MAX  0.05
 
     #define RHO_0 1.0
     #define P_0 1.0
@@ -12,6 +12,9 @@
     #define RHO_N 0.125
     #define P_N 0.1
     #define U_N 0.0
+
+    #define KAPPA 1.0/3.0
+    #define EPSILON 1.0
 
     #ifdef MAIN_C_
     double *rho;
