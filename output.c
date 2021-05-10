@@ -9,7 +9,7 @@ void export(void){
 
     if(step_cnt % 10000 == 0){
         FILE *fp;
-        sprintf(filename, "timeStep%d.csv", step_cnt);
+        sprintf(filename, "Time%.3fsec.csv", time);
 
         fp = fopen(filename, "w");
         //fprintf(fp, "TIME = %.8f\n", time);
