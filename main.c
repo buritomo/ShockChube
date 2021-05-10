@@ -26,12 +26,13 @@ int main(void){
     while(time < TIME_MAX){
         makePotential();
         fds();
-        //rungekutta();
+        rungekutta();
+        /*
         for(int k=1;k<x_split-1;k++){
             Q1[k] = Q1[k] - TIME_STEP / X_STEP * (Ehalf1[k] - Ehalf1[k-1]);
             Q2[k] = Q2[k] - TIME_STEP / X_STEP * (Ehalf2[k] - Ehalf2[k-1]);
             Q3[k] = Q3[k] - TIME_STEP / X_STEP * (Ehalf3[k] - Ehalf3[k-1]);
-        }
+        }*/
         inversePotentialToParams();
         boundaryValue();
         time = time + TIME_STEP;
