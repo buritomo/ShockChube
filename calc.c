@@ -34,6 +34,9 @@ void inversePotentialToParams(void){
         p[k] = (e[k] - 0.5 * rho[k] * u[k] * u[k]) *  (GAMMA - 1);
         c[k] = sqrt(GAMMA * p[k] / rho[k]);
         H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * u[k] * u[k];
+        if(isnan(c[k])){
+            printf("Error C is here!\n");
+        }
     }
     return;
 }
@@ -41,7 +44,7 @@ void inversePotentialToParams(void){
 void printTimer(void){
     if((time - time_flag) > (TIME_MAX / 100)){
         double rate = time / TIME_MAX * 100;
-        printf("%.1f is finished....\n", rate);
+        printf("%.1f %% is finished....\n", rate);
         time_flag = time;
     }
     return;

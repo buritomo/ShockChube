@@ -9,8 +9,9 @@ void fds(void){
 
     for(int k=0; k<x_split-1; k++){
         muscl(&rho_L, &rho_R, rho, k);
-        muscl(&e_L, &e_R, e, k);
+        muscl(&u_L, &u_R, u, k);
         muscl(&p_L, &p_R, p, k);
+        muscl(&e_L, &e_R, e, k);
         muscl(&H_L, &H_R, H, k);
         muscl(&c_L, &c_R, c, k);
 
@@ -101,7 +102,7 @@ void musclArray(void){
     Q_L[2] = e_L;
 
     Q_R[0] = rho_R;
-    Q_R[1] = rho_R * u_L;
+    Q_R[1] = rho_R * u_R;
     Q_R[2] = e_R;
 
     E_L[0] = rho_L * u_L;
@@ -111,6 +112,8 @@ void musclArray(void){
     E_R[0] = rho_R * u_R;
     E_R[1] = p_R + rho_R * u_R * u_R;
     E_R[2] = (e_R + p_R) * u_R;
+
+    return;
 }
 
 double limiter(double x, double y){
