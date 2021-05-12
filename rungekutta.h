@@ -4,6 +4,7 @@
     static double *k1;
     static double *k2;
     static double *k3;
+    static double *k4;
     
     void setAssumedPotential(void);
     void releaseAssumedPotential(void);

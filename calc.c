@@ -4,45 +4,64 @@
 #include "global.h"
 
 void calcInternalValues(void){
-    for(int k=0; k<x_split; k++){
-        e[k] = rho[k] * (p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * u[k] * u[k]);
-        c[k] = sqrt(GAMMA * p[k] / rho[k]);
-        H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * u[k] * u[k];
+    for(int kx=0; kx<x_split; kx++){
+        for(int ky=0; ky<y_split; ky++){
+            int k = kx + ky * x_split;
+            e[k] = rho[k] * (p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]));
+            c[k] = sqrt(GAMMA * p[k] / rho[k]);
+            H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]);
+        }
     }
     return;
 }
 
 void makePotential(void){
-    for(int k=0; k<x_split; k++){
-        Q1[k] = rho[k];
-        Q2[k] = rho[k] * u[k];
-        Q3[k] = e[k];
+    for(int kx=0; kx<x_split; kx++){
+        for(int ky=0; ky<y_split; ky++){
+            int k = kx + ky * x_split;
 
-        E1[k] = rho[k] * u[k];
-        E2[k] = p[k] + rho[k] * u[k] * u[k];
-        E3[k] = (e[k] + p[k]) * u[k];
+            Q1[k] = rho[k];
+            Q2[k] = rho[k] * u[k];
+            Q3[k] = rho[k] * v[k];
+            Q4[k] = e[k];
+
+            E1[k] = rho[k] * u[k];
+            E2[k] = p[k] + rho[k] * u[k] * u[k];
+            E3[k] = rho[k] * u[k] * v[k];
+            E4[k] = (e[k] + p[k]) * u[k];
+
+            F1[k] = rho[k] * v[k];
+            F2[k] = rho[k] * u[k] * v[k];
+            F3[k] = p[k] + rho[k] * v[k] * v[k];
+            F4[k] = (e[k] + p[k]) * v[k];
+        }
     }
 
     return;
 }
 
 void inversePotentialToParams(void){
-    for(int k=0; k<x_split; k++){
-        rho[k] = Q1[k];
-        u[k] = Q2[k] / rho[k];
-        e[k] = Q3[k];
-        p[k] = (e[k] - 0.5 * rho[k] * u[k] * u[k]) *  (GAMMA - 1);
-        c[k] = sqrt(GAMMA * p[k] / rho[k]);
-        H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * u[k] * u[k];
-        if(isnan(c[k])){
-            printf("Error C is here!\n");
+    for(int kx=0; kx<x_split; kx++){
+        for(int ky=0; ky<y_split; ky++){
+            int k = kx + ky * x_split;
+            rho[k] = Q1[k];
+            u[k] = Q2[k] / rho[k];
+            v[k] = Q3[k] / rho[k];
+            e[k] = Q4[k];
+            p[k] = (e[k] - 0.5 * rho[k] * (u[k] * u[k] + v[k] * v[k])) *  (GAMMA - 1);
+            c[k] = sqrt(GAMMA * p[k] / rho[k]);
+            H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]);
+            if(isnan(c[k])){
+                printf("Error C is here!:%.8f, %d, %d\n", time, kx, ky);
+                exit(1);
+            }
         }
     }
     return;
 }
 
 void printTimer(void){
-    if((time - time_flag) > (TIME_MAX / 100)){
+    if((time - time_flag) > (TIME_MAX / 1000)){
         double rate = time / TIME_MAX * 100;
         printf("%.1f %% is finished....\n", rate);
         time_flag = time;
