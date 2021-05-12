@@ -7,7 +7,7 @@
 
 void fds(void){
 
-    for(int k=0; k<x_split-1; k++){
+    for(int k=1; k<x_split-1; k++){
         muscl(&rho_L, &rho_R, rho, k);
         muscl(&u_L, &u_R, u, k);
         muscl(&p_L, &p_R, p, k);

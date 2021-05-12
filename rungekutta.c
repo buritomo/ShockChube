@@ -34,7 +34,7 @@ void rungekutta(void){
     }
 
     for(int k=0; k<4; k++){
-        for(int l=1; l<x_split-1; l++){
+        for(int l=2; l<x_split-1; l++){
             k1[l] = k1[l] - lam[k] * TIME_STEP / X_STEP * (Ehalf1[l] - Ehalf1[l-1]);
             k2[l] = k2[l] - lam[k] * TIME_STEP / X_STEP * (Ehalf2[l] - Ehalf2[l-1]);
             k3[l] = k3[l] - lam[k] * TIME_STEP / X_STEP * (Ehalf3[l] - Ehalf3[l-1]);
