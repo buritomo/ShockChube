@@ -43,7 +43,7 @@ int main(void){
             if(isnan(rho[k])){
                 printf("Not a number!\n");
                 printf("%lf, %d\n", time, k);
-                ErrorExport();
+                ErrorExport(rho);
                 exit(1);
             }
         }

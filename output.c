@@ -31,7 +31,7 @@ void export(void){
     return;
 }
 
-void ErrorExport(void){
+void ErrorExport(double *value){
     FILE *fp;
 
     fp = fopen("errorData.csv", "w");
@@ -44,7 +44,7 @@ void ErrorExport(void){
     for(int kx=0; kx<x_split; kx++){
         for(int ky=0; ky<y_split; ky++){
             int k = kx + ky * x_split;
-            fprintf(fp, "%.8f, ", rho[k]);
+            fprintf(fp, "%.8f, ", value[k]);
         }
         fprintf(fp, "\n");
     }

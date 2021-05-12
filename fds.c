@@ -18,6 +18,9 @@ void fdsX(void){
             muscl(&e_L, &e_R, e, k, X_DIR);
             muscl(&H_L, &H_R, H, k, X_DIR);
             muscl(&c_L, &c_R, c, k, X_DIR);
+            e_ave = rho_ave * (p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave));
+            c_ave = sqrt(GAMMA * p_ave / rho_ave);
+            H_ave = GAMMA * p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave);
 
             RoeAverage();
 
@@ -57,9 +60,12 @@ void fdsY(void){
             muscl(&u_L, &u_R, u, k, Y_DIR);
             muscl(&v_L, &v_R, v, k, Y_DIR);
             muscl(&p_L, &p_R, p, k, Y_DIR);
-            muscl(&e_L, &e_R, e, k, Y_DIR);
-            muscl(&H_L, &H_R, H, k, Y_DIR);
-            muscl(&c_L, &c_R, c, k, Y_DIR);
+            muscl(&e_L, &e_R, e, k, X_DIR);
+            muscl(&H_L, &H_R, H, k, X_DIR);
+            muscl(&c_L, &c_R, c, k, X_DIR);
+            e_ave = rho_ave * (p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave));
+            c_ave = sqrt(GAMMA * p_ave / rho_ave);
+            H_ave = GAMMA * p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave);
 
             RoeAverage();
 

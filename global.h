@@ -1,8 +1,8 @@
 #ifndef GLOBAL_H_
     #define GLOBAL_H_
 
-    #define X_STEP    0.001
-    #define Y_STEP    0.001
+    #define X_STEP    0.01
+    #define Y_STEP    0.01
     #define TIME_STEP 0.00001
     #define GAMMA 1.4
     #define TIME_MAX  0.1

@@ -2,6 +2,6 @@
     #define OUTPUT_H_
 
     void export(void);
-    void ErrorExport(void);
+    void ErrorExport(double *value);
 
 #endif //OUTPUT_H_

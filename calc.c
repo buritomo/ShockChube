@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "global.h"
+#include "output.h"
 
 void calcInternalValues(void){
     for(int kx=0; kx<x_split; kx++){
@@ -53,6 +54,7 @@ void inversePotentialToParams(void){
             H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]);
             if(isnan(c[k])){
                 printf("Error C is here!:%.8f, %d, %d\n", time, kx, ky);
+                ErrorExport(c);
                 exit(1);
             }
         }
