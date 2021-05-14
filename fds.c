@@ -7,7 +7,7 @@
 
 void fdsX(void){
 
-    for(int kx=1; kx<x_split-2; kx++){
+    for(int kx=1; kx<x_split-1; kx++){
         for(int ky=0; ky<y_split; ky++){
             int k = kx + ky * x_split;
             
@@ -18,9 +18,9 @@ void fdsX(void){
             muscl(&e_L, &e_R, e, k, X_DIR);
             muscl(&H_L, &H_R, H, k, X_DIR);
             muscl(&c_L, &c_R, c, k, X_DIR);
-            e_ave = rho_ave * (p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave));
-            c_ave = sqrt(GAMMA * p_ave / rho_ave);
-            H_ave = GAMMA * p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave);
+            //e_ave = rho_ave * (p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave));
+            //c_ave = sqrt(GAMMA * p_ave / rho_ave);
+            //H_ave = GAMMA * p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave);
 
             RoeAverage();
 

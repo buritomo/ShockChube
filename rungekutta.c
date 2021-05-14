@@ -37,11 +37,12 @@ void rungekutta(void){
     }
 
     for(int k=0; k<4; k++){
-        for(int lx=2; lx<x_split-2; lx++){
+        for(int lx=2; lx<x_split-1; lx++){
             for(int ly=0; ly<y_split; ly++){
                 k1[lx + x_split * ly] = k1[lx + x_split * ly] - lam[k] * TIME_STEP / X_STEP * (Ehalf1[lx + x_split * ly] - Ehalf1[lx + x_split * ly - 1]);
                 k2[lx + x_split * ly] = k2[lx + x_split * ly] - lam[k] * TIME_STEP / X_STEP * (Ehalf2[lx + x_split * ly] - Ehalf2[lx + x_split * ly - 1]);
                 k3[lx + x_split * ly] = k3[lx + x_split * ly] - lam[k] * TIME_STEP / X_STEP * (Ehalf3[lx + x_split * ly] - Ehalf3[lx + x_split * ly - 1]);
+                k4[lx + x_split * ly] = k4[lx + x_split * ly] - lam[k] * TIME_STEP / X_STEP * (Ehalf4[lx + x_split * ly] - Ehalf4[lx + x_split * ly - 1]);
             }
         }
     }
@@ -52,6 +53,7 @@ void rungekutta(void){
                 k1[lx + x_split * ly] = k1[lx + x_split * ly] - lam[k] * TIME_STEP / Y_STEP * (Fhalf1[lx + x_split * ly] - Fhalf1[lx + x_split * (ly-1)]);
                 k2[lx + x_split * ly] = k2[lx + x_split * ly] - lam[k] * TIME_STEP / Y_STEP * (Fhalf2[lx + x_split * ly] - Fhalf2[lx + x_split * (ly-1)]);
                 k3[lx + x_split * ly] = k3[lx + x_split * ly] - lam[k] * TIME_STEP / Y_STEP * (Fhalf3[lx + x_split * ly] - Fhalf3[lx + x_split * (ly-1)]);
+                k4[lx + x_split * ly] = k4[lx + x_split * ly] - lam[k] * TIME_STEP / Y_STEP * (Fhalf4[lx + x_split * ly] - Fhalf4[lx + x_split * (ly-1)]);
             }
         }
     }
