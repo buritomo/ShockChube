@@ -4,7 +4,7 @@
     #define X_STEP    0.001
     #define TIME_STEP 0.000001
     #define GAMMA 1.4
-    #define TIME_MAX  0.5
+    #define TIME_MAX  0.1
     #define MAX_STEP_CNT (int)(TIME_MAX / TIME_STEP / 50)
 
     #define RHO_0 1.0
