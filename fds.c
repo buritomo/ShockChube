@@ -4,7 +4,6 @@
 #include "global.h"
 #include "fds.h"
 
-
 void fdsX(void){
 
     for(int kx=1; kx<x_split-1; kx++){
@@ -18,9 +17,6 @@ void fdsX(void){
             muscl(&e_L, &e_R, e, k, X_DIR);
             muscl(&H_L, &H_R, H, k, X_DIR);
             muscl(&c_L, &c_R, c, k, X_DIR);
-            //e_ave = rho_ave * (p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave));
-            //c_ave = sqrt(GAMMA * p_ave / rho_ave);
-            //H_ave = GAMMA * p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave);
 
             RoeAverage();
 
@@ -53,7 +49,7 @@ void fdsX(void){
 void fdsY(void){
 
     for(int kx=0; kx<x_split; kx++){
-        for(int ky=1; ky<y_split-2; ky++){
+        for(int ky=1; ky<y_split-1; ky++){
             int k = kx + ky * x_split;
             
             muscl(&rho_L, &rho_R, rho, k, Y_DIR);
@@ -63,9 +59,6 @@ void fdsY(void){
             muscl(&e_L, &e_R, e, k, X_DIR);
             muscl(&H_L, &H_R, H, k, X_DIR);
             muscl(&c_L, &c_R, c, k, X_DIR);
-            e_ave = rho_ave * (p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave));
-            c_ave = sqrt(GAMMA * p_ave / rho_ave);
-            H_ave = GAMMA * p_ave / (rho_ave * (GAMMA - 1)) + 0.5 * (u_ave * u_ave + v_ave * v_ave);
 
             RoeAverage();
 
@@ -100,8 +93,7 @@ void RoeAverage(void){
     u_ave = (sqrt(rho_L) * u_L + sqrt(rho_R) * u_R) / ((sqrt(rho_L) + sqrt(rho_R)));
     v_ave = (sqrt(rho_L) * v_L + sqrt(rho_R) * v_R) / ((sqrt(rho_L) + sqrt(rho_R)));
     H_ave = (sqrt(rho_L) * H_L + sqrt(rho_R) * H_R) / ((sqrt(rho_L) + sqrt(rho_R)));
-    c_ave = sqrt((GAMMA - 1) * (H_ave - 0.5 * u_ave * u_ave));
-
+    c_ave = sqrt((GAMMA - 1) * (H_ave - 0.5 * (u_ave * u_ave + v_ave + v_ave)));
     return;
 }
 

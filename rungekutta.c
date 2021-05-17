@@ -49,7 +49,7 @@ void rungekutta(void){
 
     for(int k=0; k<4; k++){
         for(int lx=0; lx<x_split; lx++){
-            for(int ly=2; ly<y_split-2; ly++){
+            for(int ly=2; ly<y_split-1; ly++){
                 k1[lx + x_split * ly] = k1[lx + x_split * ly] - lam[k] * TIME_STEP / Y_STEP * (Fhalf1[lx + x_split * ly] - Fhalf1[lx + x_split * (ly-1)]);
                 k2[lx + x_split * ly] = k2[lx + x_split * ly] - lam[k] * TIME_STEP / Y_STEP * (Fhalf2[lx + x_split * ly] - Fhalf2[lx + x_split * (ly-1)]);
                 k3[lx + x_split * ly] = k3[lx + x_split * ly] - lam[k] * TIME_STEP / Y_STEP * (Fhalf3[lx + x_split * ly] - Fhalf3[lx + x_split * (ly-1)]);
