@@ -5,6 +5,7 @@
 void boundaryValue(void){
     for(int ky=0; ky<y_split; ky++){
         rho[0 + ky * x_split] = RHO_0;
+        rho[1 + ky * x_split] = RHO_0;
         rho[(x_split - 1) + ky * x_split] = RHO_N;
     }
     return;

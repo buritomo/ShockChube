@@ -24,6 +24,9 @@ int main(void){
     setAssumedPotential();
 
     while(time <= TIME_MAX){
+        if(fabs(time - 0.05) < 0.000001){
+            printf("here!\n");
+        }
         makePotential();
         fdsX();
         fdsY();
@@ -33,6 +36,7 @@ int main(void){
             Q1[k] = Q1[k] - TIME_STEP / X_STEP * (Ehalf1[k] - Ehalf1[k-1]);
             Q2[k] = Q2[k] - TIME_STEP / X_STEP * (Ehalf2[k] - Ehalf2[k-1]);
             Q3[k] = Q3[k] - TIME_STEP / X_STEP * (Ehalf3[k] - Ehalf3[k-1]);
+            Q4[k] = Q4[k] - TIME_STEP / X_STEP * (Ehalf4[k] - Ehalf4[k-1]);
         }//*/
         inversePotentialToParams();
         boundaryValue();
@@ -46,6 +50,12 @@ int main(void){
                 ErrorExport(rho);
                 exit(1);
             }
+        }
+        if(rho[50] < rho[51]){
+            printf("Inverse is here!\n");
+        }
+        if(time > 0.011568){
+            printf("next is problem?\n");
         }
     }
     printf("All calculation is finished.\n");
