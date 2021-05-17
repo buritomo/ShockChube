@@ -87,7 +87,7 @@ void Lambda(double *lambda, int k){
 void muscl(double *left, double *right, double *value, int k){
     double delta_j_plus = value[k+1] - value[k];
     double delta_j_minus = value[k] - value[k-1];
-    double delta_J1_plus = value[k+2] - value[k-1];
+    double delta_J1_plus = value[k+2] - value[k+1];
     double b = (3 - KAPPA) / (1 - KAPPA);
 
     *left = value[k] + EPSILON / 4 * ((1 - KAPPA) * (limiter(delta_j_minus, b * delta_j_plus)) + (1 + KAPPA) * (limiter(delta_j_plus, b * delta_j_minus)));
