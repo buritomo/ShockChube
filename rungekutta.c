@@ -5,9 +5,9 @@
 #include "rungekutta.h"
 
 void setAssumedPotential(void){
-    k1 = (double * )malloc(sizeof(double) * x_split);
-    k2 = (double * )malloc(sizeof(double) * x_split);
-    k3 = (double * )malloc(sizeof(double) * x_split);
+    k1 = (double * )malloc(sizeof(double) * split);
+    k2 = (double * )malloc(sizeof(double) * split);
+    k3 = (double * )malloc(sizeof(double) * split);
     
     return;
 }
@@ -27,21 +27,21 @@ void rungekutta(void){
     lam[2] = 0.5;
     lam[3] = 1.0;
 
-    for(int k=0; k<x_split; k++){
+    for(int k=0; k<split; k++){
         k1[k] = Q1[k];
         k2[k] = Q2[k];
         k3[k] = Q3[k];
     }
 
     for(int k=0; k<4; k++){
-        for(int l=2; l<x_split-1; l++){
+        for(int l=2; l<split-1; l++){
             k1[l] = k1[l] - lam[k] * TIME_STEP / X_STEP * (Ehalf1[l] - Ehalf1[l-1]);
             k2[l] = k2[l] - lam[k] * TIME_STEP / X_STEP * (Ehalf2[l] - Ehalf2[l-1]);
             k3[l] = k3[l] - lam[k] * TIME_STEP / X_STEP * (Ehalf3[l] - Ehalf3[l-1]);
         }
     }
 
-    for(int k=0; k<x_split; k++){
+    for(int k=0; k<split; k++){
         Q1[k] = k1[k];
         Q2[k] = k2[k];
         Q3[k] = k3[k];

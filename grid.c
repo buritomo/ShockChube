@@ -3,28 +3,28 @@
 #include "global.h"
 
 void makeGrid(void){
-    rho = (double * )malloc(sizeof(double) * x_split);
-    u = (double * )malloc(sizeof(double) * x_split);
-    e = (double * )malloc(sizeof(double) * x_split);
-    p = (double * )malloc(sizeof(double) * x_split);
-    c = (double * )malloc(sizeof(double) * x_split);
-    H = (double * )malloc(sizeof(double) * x_split);
-    area = (double * )malloc(sizeof(double) * x_split);
-    Q1 = (double * )malloc(sizeof(double) * x_split);
-    Q2 = (double * )malloc(sizeof(double) * x_split);
-    Q3 = (double * )malloc(sizeof(double) * x_split);
-    E1 = (double * )malloc(sizeof(double) * x_split);
-    E2 = (double * )malloc(sizeof(double) * x_split);
-    E3 = (double * )malloc(sizeof(double) * x_split);
-    Ehalf1 = (double * )malloc(sizeof(double) * x_split);
-    Ehalf2 = (double * )malloc(sizeof(double) * x_split);
-    Ehalf3 = (double * )malloc(sizeof(double) * x_split);
+    rho = (double * )malloc(sizeof(double) * split);
+    u = (double * )malloc(sizeof(double) * split);
+    e = (double * )malloc(sizeof(double) * split);
+    p = (double * )malloc(sizeof(double) * split);
+    c = (double * )malloc(sizeof(double) * split);
+    H = (double * )malloc(sizeof(double) * split);
+    area = (double * )malloc(sizeof(double) * split);
+    Q1 = (double * )malloc(sizeof(double) * split);
+    Q2 = (double * )malloc(sizeof(double) * split);
+    Q3 = (double * )malloc(sizeof(double) * split);
+    E1 = (double * )malloc(sizeof(double) * split);
+    E2 = (double * )malloc(sizeof(double) * split);
+    E3 = (double * )malloc(sizeof(double) * split);
+    Ehalf1 = (double * )malloc(sizeof(double) * split);
+    Ehalf2 = (double * )malloc(sizeof(double) * split);
+    Ehalf3 = (double * )malloc(sizeof(double) * split);
     return;
 }
 
 void defineXgrid(void){
-    for(int k=0; k<x_split; k++){
-        area[k] = (double)k * 1.0 / (double)x_split;
+    for(int k=0; k<split; k++){
+        area[k] = (double)k * 1.0 / (double)split;
     }
     return;
 }

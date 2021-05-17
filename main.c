@@ -28,7 +28,7 @@ int main(void){
         fds();
         rungekutta();
         /*
-        for(int k=1;k<x_split-1;k++){
+        for(int k=1;k<split-1;k++){
             Q1[k] = Q1[k] - TIME_STEP / X_STEP * (Ehalf1[k] - Ehalf1[k-1]);
             Q2[k] = Q2[k] - TIME_STEP / X_STEP * (Ehalf2[k] - Ehalf2[k-1]);
             Q3[k] = Q3[k] - TIME_STEP / X_STEP * (Ehalf3[k] - Ehalf3[k-1]);
@@ -38,7 +38,7 @@ int main(void){
         time = time + TIME_STEP;
         printTimer();
         export();
-        for(int k=0; k<x_split; k++){
+        for(int k=0; k<split; k++){
             if(isnan(rho[k])){
                 printf("Not a number!\n");
                 printf("%lf, %d\n", time, k);

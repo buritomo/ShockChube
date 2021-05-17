@@ -14,7 +14,7 @@ void export(void){
         fp = fopen(filename, "w");
         //fprintf(fp, "TIME = %.8f\n", time);
         fprintf(fp, "x, rho, p, u, e, H, c\n");
-        for(int k=0; k<x_split; k++){
+        for(int k=0; k<split; k++){
             fprintf(fp, "%.8f, %.8f, %.8f, %.8f, %.8f, %.8f, %.8f\n", area[k], rho[k], p[k], u[k], e[k], H[k], c[k]);
         }
         fclose(fp);
@@ -29,7 +29,7 @@ void ErrorExport(void){
     fp = fopen("errorData.csv", "w");
     //fprintf(fp, "TIME = %.8f\n", time);
     fprintf(fp, "x, rho, p, u, e, H, c\n");
-    for(int k=0; k<x_split; k++){
+    for(int k=0; k<split; k++){
         fprintf(fp, "%.8f, %.8f, %.8f, %.8f, %.8f, %.8f, %.8f\n", area[k], rho[k], p[k], u[k], e[k], H[k], c[k]);
     }
     fclose(fp);
