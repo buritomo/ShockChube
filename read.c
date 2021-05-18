@@ -3,6 +3,8 @@
 #include "read.h"
 
 void areaSet(void){
-    split = 1 / X_STEP;
+    x_split = 1 / X_STEP;
+    y_split = 1 / Y_STEP;
+    split = x_split * y_split;
     return;
 }

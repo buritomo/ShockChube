@@ -17,7 +17,7 @@
 int main(void){
     areaSet();
     makeGrid();
-    defineXgrid();
+    defineGrid();
     initialValue();
     boundaryValue();
     calcInternalValues();
@@ -25,13 +25,15 @@ int main(void){
 
     while(time <= TIME_MAX){
         makePotential();
-        fds();
+        fdsXdir();
+        fdsYdir();
         rungekutta();
-        /*
+        /*        
         for(int k=1;k<split-1;k++){
-            Q1[k] = Q1[k] - TIME_STEP / X_STEP * (Ehalf1[k] - Ehalf1[k-1]);
-            Q2[k] = Q2[k] - TIME_STEP / X_STEP * (Ehalf2[k] - Ehalf2[k-1]);
-            Q3[k] = Q3[k] - TIME_STEP / X_STEP * (Ehalf3[k] - Ehalf3[k-1]);
+            Q1[k] = Q1[k] - TIME_STEP / Y_STEP * (Fhalf1[k] - Fhalf1[k-1]);
+            Q2[k] = Q2[k] - TIME_STEP / Y_STEP * (Fhalf2[k] - Fhalf2[k-1]);
+            Q3[k] = Q3[k] - TIME_STEP / Y_STEP * (Fhalf3[k] - Fhalf3[k-1]);
+            Q4[k] = Q4[k] - TIME_STEP / Y_STEP * (Fhalf4[k] - Fhalf4[k-1]);
         }//*/
         inversePotentialToParams();
         boundaryValue();
