@@ -1,8 +1,8 @@
 #ifndef GLOBAL_H_
     #define GLOBAL_H_
 
-    #define X_STEP    1
-    #define Y_STEP    0.0001
+    #define X_STEP    0.001
+    #define Y_STEP    0.001
     #define TIME_STEP 0.000001
     #define GAMMA 1.4
     #define TIME_MAX  0.1
@@ -42,10 +42,11 @@
     double *Ehalf2;
     double *Ehalf3;
     double *Ehalf4;
-    double *Fhalf1;
-    double *Fhalf2;
-    double *Fhalf3;
-    double *Fhalf4;
+   // double *Fhalf1;
+    //double *Fhalf2;
+    //double *Fhalf3;
+    //double *Fhalf4;
+    double *Fhalf;
     volatile int x_split;
     volatile int y_split;
     volatile int split;
@@ -69,10 +70,11 @@
     extern double *Ehalf2;
     extern double *Ehalf3;
     extern double *Ehalf4;
-    extern double *Fhalf1;
-    extern double *Fhalf2;
-    extern double *Fhalf3;
-    extern double *Fhalf4;
+    //extern double *Fhalf1;
+    //extern double *Fhalf2;
+    //extern double *Fhalf3;
+    //extern double *Fhalf4;
+    extern double *Fhalf;
     extern volatile int x_split;
     extern volatile int y_split;
     extern volatile int split;

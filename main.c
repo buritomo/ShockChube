@@ -24,6 +24,11 @@ int main(void){
     setAssumedPotential();
 
     while(time <= TIME_MAX){
+        /*
+        if(time > 0.00095){
+            printf("Next is problem\n");
+        }
+        */
         makePotential();
         fdsXdir();
         fdsYdir();

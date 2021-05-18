@@ -95,6 +95,7 @@ void LambdaXdir(double *lambda, int k){
     return;
 }
 
+
 void fdsYdir(void){
 
     for(int kx=0; kx<x_split; kx++){
@@ -116,6 +117,7 @@ void fdsYdir(void){
             LeftArrayYdir(L, k);
             LambdaYdir(lambda, k);
             musclArrayYdir();
+            
             for(int l=0; l<4; l++){
                 for(int m=0; m<4; m++){
                     w[l + 4*m] = 0.0;
@@ -124,10 +126,31 @@ void fdsYdir(void){
                     }
                 }
             }
+            /*
+           for(int l=0; l<3; l++){
+               for(int m=0; m<3; m++){
+                   w[l + 3 * m] = 0.0;
+                   for(int n=0; n<3; n++){
+                       w[l+3*m] = w[l+3*m] + R[l+3*n] * lambda[n] * L[n+3*m];
+                   }
+               }
+           }*/
+           /*
             Fhalf1[k] = 0.5 * (F_L[0] + F_R[0] - w[0+4*0] * (Q_R[0] - Q_L[0]) - w[0+4*1] * (Q_R[1] - Q_L[1]) - w[0+4*2] * (Q_R[2] - Q_L[2]) - w[0+4*3] * (Q_R[3] - Q_L[3]));
             Fhalf2[k] = 0.5 * (F_L[1] + F_R[1] - w[1+4*0] * (Q_R[0] - Q_L[0]) - w[1+4*1] * (Q_R[1] - Q_L[1]) - w[1+4*2] * (Q_R[2] - Q_L[2]) - w[1+4*3] * (Q_R[3] - Q_L[3]));
             Fhalf3[k] = 0.5 * (F_L[2] + F_R[2] - w[2+4*0] * (Q_R[0] - Q_L[0]) - w[2+4*1] * (Q_R[1] - Q_L[1]) - w[2+4*2] * (Q_R[2] - Q_L[2]) - w[2+4*3] * (Q_R[3] - Q_L[3]));
             Fhalf4[k] = 0.5 * (F_L[3] + F_R[3] - w[3+4*0] * (Q_R[0] - Q_L[0]) - w[3+4*1] * (Q_R[1] - Q_L[1]) - w[3+4*2] * (Q_R[2] - Q_L[2]) - w[3+4*3] * (Q_R[3] - Q_L[3]));
+            */
+
+           for(int l=0; l<4; l++){
+               Fhalf[k + split * l] = 0.5 * (F_L[l] + F_R[l]);
+               for(int m=0; m<4; m++){
+                   Fhalf[k+split*l] = Fhalf[k+split*l] - 0.5 * w[l+4*m] * (Q_R[m] - Q_L[m]);
+               }
+
+           }
+        
+        
         }
     }
 
@@ -151,11 +174,22 @@ void RightArrayYdir(double *R, int k){
     R[3 + 4 * 1] = 0.5 * (u_ave * u_ave + v_ave * v_ave);
     R[3 + 4 * 2] = H_ave + v_ave * c_ave;
     R[3 + 4 * 3] = u_ave;
-
+    /*
+    R[0 + 3 * 0] = 1;
+    R[0 + 3 * 1] = 1;
+    R[0 + 3 * 2] = 1;
+    R[1 + 3 * 0] = v_ave - c_ave;
+    R[1 + 3 * 1] = v_ave;
+    R[1 + 3 * 2] = v_ave + c_ave;
+    R[2 + 3 * 0] = H_ave - c_ave * v_ave;
+    R[2 + 3 * 1] = 0.5 * v_ave * v_ave;
+    R[2 + 3 * 2] = H_ave + c_ave * v_ave;
+    */
     return;
 }
 
 void LeftArrayYdir(double *L, int k){
+    
     L[0 + 4 * 0] = 0.5 * (b1 + v_ave / c_ave);
     L[0 + 4 * 1] = -0.5 * b2 * u_ave;
     L[0 + 4 * 2] = -0.5 * (1 / c_ave +  b2 * v_ave);
@@ -172,7 +206,17 @@ void LeftArrayYdir(double *L, int k){
     L[3 + 4 * 1] = 1;
     L[3 + 4 * 2] = 0;
     L[3 + 4 * 3] = 0;
-
+    /*
+   L[0 + 3 * 0] = 0.5 * (b1 + v_ave / c_ave);
+   L[0 + 3 * 1] = -0.5 * (1 / c_ave + b2 * v_ave);
+   L[0 + 3 * 2] = 0.5 * b2;
+   L[1 + 3 * 0] = 1 - b1;
+   L[1 + 3 * 1] = b2 * v_ave;
+   L[1 + 3 * 2] = -b2;
+   L[2 + 3 * 0] = 0.5 * (b1 - v_ave);
+   L[2 + 3 * 1] = 0.5 * (1 / c_ave - b2 * v_ave);
+   L[2 + 3 * 2] = 0.5 * b2; 
+    */
     return;  
 }
 
@@ -210,7 +254,7 @@ void muscl(double *left, double *right, double *value, int k, int dir){
     double b = (3 - KAPPA) / (1 - KAPPA);
 
     *left = value[k] + EPSILON / 4 * ((1 - KAPPA) * (limiter(delta_j_minus, b * delta_j_plus)) + (1 + KAPPA) * (limiter(delta_j_plus, b * delta_j_minus)));
-    *right = value[k+1] - EPSILON / 4 * ((1 + KAPPA) * (limiter(delta_j_plus, b * delta_J1_plus)) + (1 - KAPPA) * (limiter(delta_J1_plus, b * delta_j_plus)));
+    *right = value[k+delta] - EPSILON / 4 * ((1 + KAPPA) * (limiter(delta_j_plus, b * delta_J1_plus)) + (1 - KAPPA) * (limiter(delta_J1_plus, b * delta_j_plus)));
 
     return;
 }
@@ -258,7 +302,7 @@ void musclArrayYdir(void){
     F_R[0] = rho_R * v_R;
     F_R[1] = rho_R * u_R * v_R;
     F_R[2] = rho_R * v_R * v_R + p_R;
-    F_R[3] = (e_R + p_R) * u_R;
+    F_R[3] = (e_R + p_R) * v_R;
 
     return;
 }

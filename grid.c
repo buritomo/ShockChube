@@ -19,10 +19,11 @@ void makeGrid(void){
     Ehalf2 = (double * )malloc(sizeof(double) * split);
     Ehalf3 = (double * )malloc(sizeof(double) * split);
     Ehalf4 = (double * )malloc(sizeof(double) * split);
-    Fhalf1 = (double * )malloc(sizeof(double) * split);
-    Fhalf2 = (double * )malloc(sizeof(double) * split);
-    Fhalf3 = (double * )malloc(sizeof(double) * split);
-    Fhalf4 = (double * )malloc(sizeof(double) * split);
+    //Fhalf1 = (double * )malloc(sizeof(double) * split);
+    //Fhalf2 = (double * )malloc(sizeof(double) * split);
+    //Fhalf3 = (double * )malloc(sizeof(double) * split);
+    //Fhalf4 = (double * )malloc(sizeof(double) * split);
+    Fhalf = (double *)malloc(sizeof(double) * split * 4 );
     return;
 }
 
@@ -53,10 +54,11 @@ void freeGrid(void){
     free(Ehalf2);
     free(Ehalf3);
     free(Ehalf4);
-    free(Fhalf1);
-    free(Fhalf2);
-    free(Fhalf3);
-    free(Fhalf4);
+    //free(Fhalf1);
+    //free(Fhalf2);
+    //free(Fhalf3);
+    //free(Fhalf4);
+    free(Fhalf);
 
     return;
 }

@@ -41,9 +41,14 @@ void inversePotentialToParams(void){
             p[k] = (e[k] - 0.5 * rho[k] * (u[k] * u[k] + v[k] * v[k])) *  (GAMMA - 1);
             c[k] = sqrt(GAMMA * p[k] / rho[k]);
             H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]);
+            /*
             if(isnan(c[k])){
                 printf("Error C is here!\n");
             }
+            if(ky>0 && rho[k] > rho[k-1]){
+                printf("Reverse Happen here!!\n");
+            }
+            */
         }
     }
     return;
