@@ -7,9 +7,9 @@ void calcInternalValues(void){
     for(int kx=0; kx<x_split; kx++){
         for(int ky=0; ky<y_split; ky++){
             int k = kx + ky * x_split;
-            e[k] = rho[k] * (p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]));
-            c[k] = sqrt(GAMMA * p[k] / rho[k]);
-            H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]);
+            e[k] = rho[k] * (p[k] / (rho[k] * (Gamma - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]));
+            c[k] = sqrt(Gamma * p[k] / rho[k]);
+            H[k] = Gamma * p[k] / (rho[k] * (Gamma - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]);
         }
     }
     return;
@@ -38,9 +38,9 @@ void inversePotentialToParams(void){
             u[k] = Q2[k] / rho[k];
             v[k] = Q3[k] / rho[k];
             e[k] = Q4[k];
-            p[k] = (e[k] - 0.5 * rho[k] * (u[k] * u[k] + v[k] * v[k])) *  (GAMMA - 1);
-            c[k] = sqrt(GAMMA * p[k] / rho[k]);
-            H[k] = GAMMA * p[k] / (rho[k] * (GAMMA - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]);
+            p[k] = (e[k] - 0.5 * rho[k] * (u[k] * u[k] + v[k] * v[k])) *  (Gamma - 1);
+            c[k] = sqrt(Gamma * p[k] / rho[k]);
+            H[k] = Gamma * p[k] / (rho[k] * (Gamma - 1)) + 0.5 * (u[k] * u[k] + v[k] * v[k]);
             /*
             if(isnan(c[k])){
                 printf("Error C is here!\n");
@@ -55,8 +55,8 @@ void inversePotentialToParams(void){
 }
 
 void printTimer(void){
-    if((time - time_flag) > (TIME_MAX / 100)){
-        double rate = time / TIME_MAX * 100;
+    if((time - time_flag) > (time_max / 100)){
+        double rate = time / time_max * 100;
         printf("%.1f %% is finished....\n", rate);
         time_flag = time;
     }

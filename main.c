@@ -15,6 +15,8 @@
 #include "output.h"
 
 int main(void){
+    inputSetting();
+    inputInitialValue();
     areaSet();
     makeGrid();
     defineGrid();
@@ -23,26 +25,14 @@ int main(void){
     calcInternalValues();
     setAssumedPotential();
 
-    while(time <= TIME_MAX){
-        /*
-        if(time > 0.00095){
-            printf("Next is problem\n");
-        }
-        */
+    while(time <= time_max){
         makePotential();
         fdsXdir();
         fdsYdir();
         rungekutta();
-        /*        
-        for(int k=1;k<split-1;k++){
-            Q1[k] = Q1[k] - TIME_STEP / Y_STEP * (Fhalf1[k] - Fhalf1[k-1]);
-            Q2[k] = Q2[k] - TIME_STEP / Y_STEP * (Fhalf2[k] - Fhalf2[k-1]);
-            Q3[k] = Q3[k] - TIME_STEP / Y_STEP * (Fhalf3[k] - Fhalf3[k-1]);
-            Q4[k] = Q4[k] - TIME_STEP / Y_STEP * (Fhalf4[k] - Fhalf4[k-1]);
-        }//*/
         inversePotentialToParams();
         boundaryValue();
-        time = time + TIME_STEP;
+        time = time + time_step;
         printTimer();
         export();
         for(int k=0; k<split; k++){

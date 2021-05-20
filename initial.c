@@ -4,22 +4,27 @@
 #include "initial.h"
 
 void initialValue(void){
-    for(int kx=0; kx<x_split; kx++){
-        for(int ky=0; ky<y_split/2; ky++){
+    double x1 = (Ax / x_step);
+    double y1 = (Ay / y_step);
+    double x2 = (Bx / x_step);
+    double y2 = (By / y_step);
+
+    for(int ky=0; ky<y_split; ky++){
+        for(int kx=0; kx<(x1 + (x2 - x1) / (y2 - y1) * (ky - y1)); kx++){
             int k = kx + ky * x_split;
-            rho[k] = RHO_0;
-            p[k] = P_0;
-            u[k] = U_0;
-            v[k] = V_0;
+            rho[k] = rho_0;
+            p[k] = p_0;
+            u[k] = u_0;
+            v[k] = v_0;
         }
     }
-    for(int kx=0; kx<x_split; kx++){
-        for(int ky=y_split/2; ky<y_split; ky++){
+    for(int ky=0; ky<y_split; ky++){
+        for(int kx=(x1 + (x2 - x1) / (y2 - y1) * (ky - y1)); kx<x_split; kx++){
             int k = kx + ky * x_split;
-            rho[k] = RHO_N;
-            p[k] = P_N;
-            u[k] = U_N;
-            v[k] = V_N;
+            rho[k] = rho_N;
+            p[k] = p_N;
+            u[k] = u_N;
+            v[k] = v_N;
         }
     }
     return;

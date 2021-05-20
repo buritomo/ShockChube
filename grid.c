@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include "global.h"
 
+void areaSet(void){
+    x_split = 1 / x_step;
+    y_split = 1 / y_step;
+    split = x_split * y_split;
+    return;
+}
+
 void makeGrid(void){
     rho = (double * )malloc(sizeof(double) * split);
     u = (double * )malloc(sizeof(double) * split);
@@ -15,14 +22,7 @@ void makeGrid(void){
     Q2 = (double * )malloc(sizeof(double) * split);
     Q3 = (double * )malloc(sizeof(double) * split);
     Q4 = (double * )malloc(sizeof(double) * split);
-    Ehalf1 = (double * )malloc(sizeof(double) * split);
-    Ehalf2 = (double * )malloc(sizeof(double) * split);
-    Ehalf3 = (double * )malloc(sizeof(double) * split);
-    Ehalf4 = (double * )malloc(sizeof(double) * split);
-    //Fhalf1 = (double * )malloc(sizeof(double) * split);
-    //Fhalf2 = (double * )malloc(sizeof(double) * split);
-    //Fhalf3 = (double * )malloc(sizeof(double) * split);
-    //Fhalf4 = (double * )malloc(sizeof(double) * split);
+    Ehalf = (double *)malloc(sizeof(double) * split * 4 );
     Fhalf = (double *)malloc(sizeof(double) * split * 4 );
     return;
 }
@@ -50,14 +50,7 @@ void freeGrid(void){
     free(Q2);
     free(Q3);
     free(Q4);
-    free(Ehalf1);
-    free(Ehalf2);
-    free(Ehalf3);
-    free(Ehalf4);
-    //free(Fhalf1);
-    //free(Fhalf2);
-    //free(Fhalf3);
-    //free(Fhalf4);
+    free(Ehalf);
     free(Fhalf);
 
     return;

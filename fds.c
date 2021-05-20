@@ -20,8 +20,8 @@ void fdsXdir(void){
 
             RoeAverage();
 
-            b1 = (u_ave * u_ave + v_ave * v_ave) / 2 * (GAMMA - 1) / c_ave / c_ave;
-            b2 = (GAMMA - 1) / c_ave / c_ave;
+            b1 = (u_ave * u_ave + v_ave * v_ave) / 2 * (Gamma - 1) / c_ave / c_ave;
+            b2 = (Gamma - 1) / c_ave / c_ave;
             RightArrayXdir(R, k);
             LeftArrayXdir(L, k);
             LambdaXdir(lambda, k);
@@ -34,10 +34,13 @@ void fdsXdir(void){
                     }
                 }
             }
-            Ehalf1[k] = 0.5 * (E_L[0] + E_R[0] - w[0+4*0] * (Q_R[0] - Q_L[0]) - w[0+4*1] * (Q_R[1] - Q_L[1]) - w[0+4*2] * (Q_R[2] - Q_L[2]) - w[0+4*3] * (Q_R[3] - Q_L[3]));
-            Ehalf2[k] = 0.5 * (E_L[1] + E_R[1] - w[1+4*0] * (Q_R[0] - Q_L[0]) - w[1+4*1] * (Q_R[1] - Q_L[1]) - w[1+4*2] * (Q_R[2] - Q_L[2]) - w[1+4*3] * (Q_R[3] - Q_L[3]));
-            Ehalf3[k] = 0.5 * (E_L[2] + E_R[2] - w[2+4*0] * (Q_R[0] - Q_L[0]) - w[2+4*1] * (Q_R[1] - Q_L[1]) - w[2+4*2] * (Q_R[2] - Q_L[2]) - w[2+4*3] * (Q_R[3] - Q_L[3]));
-            Ehalf4[k] = 0.5 * (E_L[3] + E_R[3] - w[3+4*0] * (Q_R[0] - Q_L[0]) - w[3+4*1] * (Q_R[1] - Q_L[1]) - w[3+4*2] * (Q_R[2] - Q_L[2]) - w[3+4*3] * (Q_R[3] - Q_L[3]));
+
+           for(int l=0; l<4; l++){
+               Ehalf[k + split*l] = 0.5 * (E_L[l] + E_R[l]);
+               for(int m=0; m<4; m++){
+                   Ehalf[k+split*l] = Ehalf[k+split*l] - 0.5 * w[l+4*m] * (Q_R[m] - Q_L[m]);
+               }
+           }
         }
     }
 
@@ -111,8 +114,8 @@ void fdsYdir(void){
 
             RoeAverage();
 
-            b1 = (u_ave * u_ave + v_ave * v_ave) / 2 * (GAMMA - 1) / c_ave / c_ave;
-            b2 = (GAMMA - 1) / c_ave / c_ave;
+            b1 = (u_ave * u_ave + v_ave * v_ave) / 2 * (Gamma - 1) / c_ave / c_ave;
+            b2 = (Gamma - 1) / c_ave / c_ave;
             RightArrayYdir(R, k);
             LeftArrayYdir(L, k);
             LambdaYdir(lambda, k);
@@ -126,21 +129,6 @@ void fdsYdir(void){
                     }
                 }
             }
-            /*
-           for(int l=0; l<3; l++){
-               for(int m=0; m<3; m++){
-                   w[l + 3 * m] = 0.0;
-                   for(int n=0; n<3; n++){
-                       w[l+3*m] = w[l+3*m] + R[l+3*n] * lambda[n] * L[n+3*m];
-                   }
-               }
-           }*/
-           /*
-            Fhalf1[k] = 0.5 * (F_L[0] + F_R[0] - w[0+4*0] * (Q_R[0] - Q_L[0]) - w[0+4*1] * (Q_R[1] - Q_L[1]) - w[0+4*2] * (Q_R[2] - Q_L[2]) - w[0+4*3] * (Q_R[3] - Q_L[3]));
-            Fhalf2[k] = 0.5 * (F_L[1] + F_R[1] - w[1+4*0] * (Q_R[0] - Q_L[0]) - w[1+4*1] * (Q_R[1] - Q_L[1]) - w[1+4*2] * (Q_R[2] - Q_L[2]) - w[1+4*3] * (Q_R[3] - Q_L[3]));
-            Fhalf3[k] = 0.5 * (F_L[2] + F_R[2] - w[2+4*0] * (Q_R[0] - Q_L[0]) - w[2+4*1] * (Q_R[1] - Q_L[1]) - w[2+4*2] * (Q_R[2] - Q_L[2]) - w[2+4*3] * (Q_R[3] - Q_L[3]));
-            Fhalf4[k] = 0.5 * (F_L[3] + F_R[3] - w[3+4*0] * (Q_R[0] - Q_L[0]) - w[3+4*1] * (Q_R[1] - Q_L[1]) - w[3+4*2] * (Q_R[2] - Q_L[2]) - w[3+4*3] * (Q_R[3] - Q_L[3]));
-            */
 
            for(int l=0; l<4; l++){
                Fhalf[k + split * l] = 0.5 * (F_L[l] + F_R[l]);
@@ -174,17 +162,7 @@ void RightArrayYdir(double *R, int k){
     R[3 + 4 * 1] = 0.5 * (u_ave * u_ave + v_ave * v_ave);
     R[3 + 4 * 2] = H_ave + v_ave * c_ave;
     R[3 + 4 * 3] = u_ave;
-    /*
-    R[0 + 3 * 0] = 1;
-    R[0 + 3 * 1] = 1;
-    R[0 + 3 * 2] = 1;
-    R[1 + 3 * 0] = v_ave - c_ave;
-    R[1 + 3 * 1] = v_ave;
-    R[1 + 3 * 2] = v_ave + c_ave;
-    R[2 + 3 * 0] = H_ave - c_ave * v_ave;
-    R[2 + 3 * 1] = 0.5 * v_ave * v_ave;
-    R[2 + 3 * 2] = H_ave + c_ave * v_ave;
-    */
+
     return;
 }
 
@@ -206,17 +184,7 @@ void LeftArrayYdir(double *L, int k){
     L[3 + 4 * 1] = 1;
     L[3 + 4 * 2] = 0;
     L[3 + 4 * 3] = 0;
-    /*
-   L[0 + 3 * 0] = 0.5 * (b1 + v_ave / c_ave);
-   L[0 + 3 * 1] = -0.5 * (1 / c_ave + b2 * v_ave);
-   L[0 + 3 * 2] = 0.5 * b2;
-   L[1 + 3 * 0] = 1 - b1;
-   L[1 + 3 * 1] = b2 * v_ave;
-   L[1 + 3 * 2] = -b2;
-   L[2 + 3 * 0] = 0.5 * (b1 - v_ave);
-   L[2 + 3 * 1] = 0.5 * (1 / c_ave - b2 * v_ave);
-   L[2 + 3 * 2] = 0.5 * b2; 
-    */
+
     return;  
 }
 
@@ -234,7 +202,7 @@ void RoeAverage(void){
     u_ave = (sqrt(rho_L) * u_L + sqrt(rho_R) * u_R) / ((sqrt(rho_L) + sqrt(rho_R)));
     v_ave = (sqrt(rho_L) * v_L + sqrt(rho_R) * v_R) / ((sqrt(rho_L) + sqrt(rho_R)));
     H_ave = (sqrt(rho_L) * H_L + sqrt(rho_R) * H_R) / ((sqrt(rho_L) + sqrt(rho_R)));
-    c_ave = sqrt((GAMMA - 1) * (H_ave - 0.5 * (u_ave * u_ave + v_ave * v_ave)));
+    c_ave = sqrt((Gamma - 1) * (H_ave - 0.5 * (u_ave * u_ave + v_ave * v_ave)));
 
     return;
 }

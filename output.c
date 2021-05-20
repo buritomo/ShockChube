@@ -5,9 +5,10 @@
 
 void export(void){
     char filename[100];
-    int step_cnt = (time / TIME_STEP);
+    int step_cnt = (time / time_step);
+    int max_step_cnt = (int)(time_max / time_step / 10);
 
-    if(step_cnt % MAX_STEP_CNT == 0){
+    if(step_cnt % max_step_cnt == 0){
         FILE *fp;
         sprintf(filename, "Time%.3fsec.csv", time);
 

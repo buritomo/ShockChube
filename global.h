@@ -1,13 +1,13 @@
 #ifndef GLOBAL_H_
     #define GLOBAL_H_
 
-    #define X_STEP    0.01
-    #define Y_STEP    0.01
-    #define TIME_STEP 0.00001
-    #define GAMMA 1.4
-    #define TIME_MAX  0.1
-    #define MAX_STEP_CNT (int)(TIME_MAX / TIME_STEP / 10)
-
+    //#define x_step    0.01
+    //#define y_step    0.01
+    //#define time_step 0.00001
+    //#define Gamma 1.4
+    //#define time_max  0.1
+    //#define MAX_STEP_CNT (int)(time_max / time_step / 10)
+    /*
     #define RHO_0 1.0
     #define P_0 1.0
     #define U_0 0.0
@@ -16,6 +16,7 @@
     #define P_N 0.1
     #define U_N 0.0
     #define V_N 0.0
+    */
 
     #define KAPPA 1.0 / 3.0
     #define EPSILON 1.0
@@ -38,19 +39,27 @@
     double *Q2;
     double *Q3;
     double *Q4;
-    double *Ehalf1;
-    double *Ehalf2;
-    double *Ehalf3;
-    double *Ehalf4;
-   // double *Fhalf1;
-    //double *Fhalf2;
-    //double *Fhalf3;
-    //double *Fhalf4;
+    double *Ehalf;
     double *Fhalf;
+    volatile double x_step;
+    volatile double y_step;
     volatile int x_split;
     volatile int y_split;
+    volatile double time_step;
     volatile int split;
-
+    volatile double Gamma;
+    volatile double time_max;
+    volatile int file_num;
+    volatile double rho_N;
+    volatile double rho_0;
+    volatile double p_N;
+    volatile double p_0;
+    volatile double u_N;
+    volatile double u_0;
+    volatile double v_N;
+    volatile double v_0;
+    volatile double Ax, Ay;
+    volatile double Bx, By;
     #else
     extern double *rho;
     extern double *u;
@@ -66,18 +75,27 @@
     extern double *Q2;
     extern double *Q3;
     extern double *Q4;
-    extern double *Ehalf1;
-    extern double *Ehalf2;
-    extern double *Ehalf3;
-    extern double *Ehalf4;
-    //extern double *Fhalf1;
-    //extern double *Fhalf2;
-    //extern double *Fhalf3;
-    //extern double *Fhalf4;
+    extern double *Ehalf;
     extern double *Fhalf;
+    extern volatile double x_step;
+    extern volatile double y_step;
     extern volatile int x_split;
     extern volatile int y_split;
+    extern volatile double time_step;
     extern volatile int split;
+    extern volatile double Gamma;
+    extern volatile double time_max;
+    extern volatile int file_num;
+    extern volatile double rho_N;
+    extern volatile double rho_0;
+    extern volatile double p_N;
+    extern volatile double p_0;
+    extern volatile double u_N;
+    extern volatile double u_0;
+    extern volatile double v_N;
+    extern volatile double v_0;
+    extern volatile double Ax, Ay;
+    extern volatile double Bx, By;
 
     #endif
 
