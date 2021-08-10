@@ -10,6 +10,9 @@ void fdsXdir(void){
     for(int kx=1; kx<x_split-1; kx++){
         for(int ky=0; ky<y_split; ky++){
             int k = kx + ky * x_split;
+            if (k == 49){
+                printf("Here!");
+            }
             muscl(&rho_L, &rho_R, rho, k, X_DIR);
             muscl(&u_L, &u_R, u, k, X_DIR);
             muscl(&v_L, &v_R, v, k, X_DIR);
@@ -276,10 +279,10 @@ void musclArrayYdir(void){
 }
 
 double limiter(double x, double y){
-    return (sgn(x) * max(0, min(abs(x), sgn(x) * y)));
+    return (sgn(x) * maxf(0, minf(abs(x), sgn(x) * y)));
 }
 
-double max(double x, double y){
+double maxf(double x, double y){
     if(x > y){
         return x;
     }
@@ -288,7 +291,7 @@ double max(double x, double y){
     }
 }
 
-double min(double x, double y){
+double minf(double x, double y){
     if(x > y){
         return y;
     }

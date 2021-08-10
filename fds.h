@@ -40,8 +40,8 @@
     void musclArrayXdir(void);
     void musclArrayYdir(void);
     double limiter(double x, double y);
-    double max(double x, double y);
-    double min(double x, double y);
+    double maxf(double x, double y);
+    double minf(double x, double y);
     double sgn(double x);
 
 
